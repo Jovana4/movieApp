@@ -20,7 +20,7 @@ class DB extends mysqli {
 	function executeRow($query){
 		
         $result = $this->query($query);
-		var_dump($this->error);
+		//var_dump($this->error);
 		
         $rows = [];
         if ($result->num_rows == 0) {
@@ -58,7 +58,7 @@ class DB extends mysqli {
 		}
 		
 		$result = $this->executeRow($query);
-		var_dump($query);
+		//var_dump($query);
 		return $result;
 	}
 	
@@ -89,11 +89,10 @@ class DB extends mysqli {
 		
 		$query .= $values;
 		$response = $this->query($query);
-		var_dump($this->error);
-		var_dump($query);
+		//var_dump($this->error);
+		//var_dump($query);
 		return $response;
 	}
-	//UPDATE 'movies' SET 'created_at'= NULL;
 	public function del($table, $id){
 		$conn = self::getInstance();
 		$query = "DELETE FROM " . $table . " WHERE id = " . $id;

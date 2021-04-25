@@ -39,12 +39,6 @@ class Model{
 	public function del($id){
 		return $this->db->del($this->table, $id);
 	}
-	
-
-
-
-
-
 }
 
 ?>

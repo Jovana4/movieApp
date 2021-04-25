@@ -23,11 +23,11 @@
 				
 				$movie = new Movie();
 				//$movies->getAllMovies();
-				//$movies = $movie->all();
-				//var_dump($movies);
+				$movies = $movie->all();
+				var_dump($movies);
 				//$movie->create(['name' => '"Titanik"', 'year' => 1997, 'ganre' => '"Action"', 'producer' => '"Pera Peric"']);
 				//$movie->del(40);
-				$movie->update(['name' => '"Titanik"', 'year' => 1999, 'producer' => '"Pera Markovic"'],49);
+				//$movie->update(['name' => '"Titanik"', 'year' => 1999, 'producer' => '"Pera Markovic"'],49);
 				//$movies->deleteMovie();
 				//$movies->updateMovie();
 			?>
