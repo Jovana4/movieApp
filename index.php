@@ -22,14 +22,23 @@
 				require "config.php";
 				
 				$movie = new Movie();
-				//$movies->getAllMovies();
-				$movies = $movie->all();
-				var_dump($movies);
-				//$movie->create(['name' => '"Titanik"', 'year' => 1997, 'ganre' => '"Action"', 'producer' => '"Pera Peric"']);
-				//$movie->del(40);
+				//$movies = $movie->all();
+				//var_dump($movies);
+				$movie->create(['name' => '"Phoenix"', 'year' => 1997, 'genre' => [1], 'producer' => 1]);
+				//$movie->del(50);
 				//$movie->update(['name' => '"Titanik"', 'year' => 1999, 'producer' => '"Pera Markovic"'],49);
-				//$movies->deleteMovie();
-				//$movies->updateMovie();
+				//$genre = new Genre();
+				//var_dump($genre);
+				//$genre->create(['name' => '"animated"']);
+				//$genre->del(1);
+				//$genre->update(['name' => '"action"'],2);
+				//$genres = $genre->all();
+				//var_dump($genres);
+                //$producer = new Producer();
+                //$producer->create(['name' => '"Cameron"']);
+                //$producer->update(['name' => '"James Cameron"'],2);
+                //$producers = $producer->all();
+                //var_dump($producers);
 			?>
 		</div>
 		<div id="footer">-----footer-----</div>

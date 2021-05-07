@@ -62,7 +62,7 @@ class DB extends mysqli {
 		return $result;
 	}
 	
-	public function insert($table, array $columnValue){
+	public function insert($table, array $columnValue, $withId = false){
 		$conn = self::getInstance();
 		$a=count($columnValue);
 		$i=1;
@@ -88,15 +88,18 @@ class DB extends mysqli {
 		$query .=" VALUES (";
 		
 		$query .= $values;
-		$response = $this->query($query);
-		//var_dump($this->error);
-		//var_dump($query);
-		return $response;
+        $response = $this->query($query);
+		if ($withId) {
+            return $conn->insert_id;
+        } else {
+            return $response;
+        }
 	}
+	
 	public function del($table, $id){
 		$conn = self::getInstance();
 		$query = "DELETE FROM " . $table . " WHERE id = " . $id;
-		//var_dump($query);
+		var_dump($query);
 		return $this->query($query);
 	}
 

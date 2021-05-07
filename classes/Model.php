@@ -20,13 +20,13 @@ class Model{
 		return $this->db->select($this->table, $columnValue);
 	}
 	
-	public function create(array $columnValue){
+	public function create(array $columnValue, $withId = false){
 		
 		if ($this->timestamps) {
 			$columnValue['created_at'] = date(self::$timestampFormat);
 			$columnValue['updated_at'] = date(self::$timestampFormat);
 		}
-		return $this->db->insert($this->table, $columnValue);
+		return $this->db->insert($this->table, $columnValue, $withId);
 	}
 	
 	public function update(array $columnValue, $id){

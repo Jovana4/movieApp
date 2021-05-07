@@ -1,0 +1,48 @@
+Napraviti konfiguracioni fajl config.php
+	u njemu definisati globalne promenljive za konekciju na bazu
+	define('DB_HOST_NAME', 'localhost');// dodati iz a ostale
+
+Napraviti klasu DB.php koja se izvodi iz PHP-ove mysqli klase (class DB extends mysqli)
+	- klasa sadrzi privatni staticki atribut instance
+	- Ima konstruktor koji poziva originalni parent konstruktor mysqli klase 
+		- parent::__construct() - pozive konstruktora parent klase //ovde koristis globalne promenljive koje si kreirala u config fajlu (globalna promenljiva se poziva samo DB_HOST_NAME)
+		i nakon ovoga deo koda
+		"$this->set_charset('utf8');
+        if($this->connect_error) {
+            die("Error: " . $this->connect_error);
+        }"
+	-Ima jednu staticku funkciju getInstance() (ovo je implementacija Singleton projektnog obrasca) 
+		koja ispituje da li je self::$instance je null ako je null onda kreira objekat new DB() i dodeljuje ga self::$instance i na kraju nje vraca return self::$instance; 
+		(ovime postizemo da kada jednom otvorimo konekciju na bazu ona bude sve vreme aktiivna i ne pravimo dodatne konekcije)
+	- Ima funkciju executeRow($query) koja izvrsava query koji se prosledi i izvrsi a kao rezultat se vraca asocijativni niz
+	- Ima funkciju select($table, array $columns = null, $where = null)
+		- ideja je da se naporavi query builder preko ove funkcije tipa
+			 select('movies', ['name', 'year'], 'year > 2010 and procucer = "Pera Peric"'); 
+			 ona ovo transformise u sql upit
+			 
+			 select name, year from movies where year > 2010 and procucer = "Pera Peric";
+			 
+			 i izvrsi ga pozivanjem fje executeRow($query) i vraca taj rezultat
+			 
+	 - Ima funkciju insert($table, array $columnValue) ova funkcija radi insert u bazu za odredjenu tabelu
+		
+			 insert('movies', ['name' => 'Titanik', 'year' => 1996, 'producer' => 'Pera Peric'])
+			 
+			 transformise u sql query 
+			 
+			 insert into 'movies'
+			 INSERT INTO `movies` (`name`, `year`, `producer`) VALUES ('Titanik', 1996, 'Pera Peric');
+			 
+			 i izvrsava ovaj upit (return $this->query($query)); ovde se poziva funkcija iz parent mysqli klase
+			 
+	 - Ima funkciju delete($table, $id) isto kao i gore brise row iz tabele na osnovu id-ja
+	 - Ima funkciju  update($table, array $columnValue, $id)  ova funkcija radi update za odredjenu tabelu i prosledjeni id
+		 update('movies', ['name' => 'Titanik', 'year' => 1999, 'producer' => 'Pera Markovic'], 1)
+		 
+		 transformise u sql query 
+		
+		update `movies` SET `name` = "Titanik", `year` = 1999, `producer` = "Pera Markovic" where id = 1;
+		
+		i izvrsava ovaj upit (return $this->query($query)); i ovde se poziva funkcija iz parent mysqli klase
+		
+Sve ove metode treba iskoristiti u tvom Movie modelu i testirati (nije neophodano da ima dizajn samo proveravamo funkcionalnost DB.php klase). Nakon toga prelazimo na sledeci korak.
