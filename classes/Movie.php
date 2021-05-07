@@ -12,7 +12,7 @@ class Movie extends Model {
 
 	    $genres = $columnValue['genre'];
         unset($columnValue['genre']);
-	    $producer = $columnValue['producer'];
+	    $producers = $columnValue['producer'];
         unset($columnValue['producer']);
         $id = parent::create($columnValue, true);
         var_dump($id);
@@ -21,6 +21,21 @@ class Movie extends Model {
             $mg->create(['movie_id' => $id, 'genre_id' => $genre]);
         }
         $mp = new MovieProducer();
-        $mp->create(['movie_id' => $id, 'producer_id' => $producer]);
+        $mp->create(['movie_id' => $id, 'producer_id' => $producers]);
+    }
+
+    public function update(array $columnValue, $id){
+        $genres = $columnValue['genre'];
+        unset($columnValue['genre']);
+        $producers = $columnValue['producer'];
+        unset($columnValue['producer']);
+        parent::update($columnValue, $id);
+
+        $mg = new MovieGenre();
+//        $query = "SELECT id FROM movie_genre WHERE movie_id =". $id;
+        $where = 'movie_id ='. $id;
+        $existingGenres = $mg->select(['id'], $where);
+        var_dump($existingGenres);
+
     }
 }

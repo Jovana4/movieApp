@@ -58,7 +58,7 @@ class DB extends mysqli {
 		}
 		
 		$result = $this->executeRow($query);
-		//var_dump($query);
+		var_dump($query);
 		return $result;
 	}
 	
@@ -89,6 +89,7 @@ class DB extends mysqli {
 		
 		$query .= $values;
         $response = $this->query($query);
+        var_dump($this->error);
 		if ($withId) {
             return $conn->insert_id;
         } else {

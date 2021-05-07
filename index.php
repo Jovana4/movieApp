@@ -24,9 +24,9 @@
 				$movie = new Movie();
 				//$movies = $movie->all();
 				//var_dump($movies);
-				$movie->create(['name' => '"Phoenix"', 'year' => 1997, 'genre' => [1], 'producer' => 1]);
+				//$movie->create(['name' => '"Phoenix"', 'year' => 1997, 'genre' => [1], 'producer' => 1]);
 				//$movie->del(50);
-				//$movie->update(['name' => '"Titanik"', 'year' => 1999, 'producer' => '"Pera Markovic"'],49);
+				$movie->update(['name' => '"Titanik"', 'year' => 1999, 'producer' => [1]],59);
 				//$genre = new Genre();
 				//var_dump($genre);
 				//$genre->create(['name' => '"animated"']);
